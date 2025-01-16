@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Homestay</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+    
+    <!-- Nội dung trang -->
+    <h2>Chào mừng đến với Homestay</h2>
+    
+    <!-- Form Lọc Phòng -->
+    <form th:action="@{/}" method="get" style="margin-bottom: 20px;">
+        <label for="type">Lọc theo Loại Phòng:</label>
+        <select id="type" name="type">
+            <option value="" th:selected="${type == null || type == ''}">Tất cả các loại</option>
+            <option value="Standard" th:selected="${type == 'Standard'}">Phòng Tiêu Chuẩn</option>
+            <option value="Superior" th:selected="${type == 'Superior'}">Phòng Cao Cấp</option>
+            <option value="Deluxe" th:selected="${type == 'Deluxe'}">Phòng Sang Trọng</option>
+            <option value="Suite" th:selected="${type == 'Suite'}">Phòng Hạng Sang</option>
+        </select>
+        <label>
+            <input type="checkbox" name="availableOnly" th:checked="${availableOnly == true}"> Chỉ hiển thị phòng còn trống
+        </label>
+        <button type="submit">Áp dụng</button>
+    </form>
+    
+    <!-- Thanh Select Sắp Xếp -->
+    <form th:action="@{/}" method="get" style="margin-bottom: 20px;">
+        <input type="hidden" name="type" th:value="${type}">
+        <input type="hidden" name="availableOnly" th:value="${availableOnly}">
+        <label for="sortBy">Sắp xếp theo giá:</label>
+        <select id="sortBy" name="sortBy" onchange="this.form.submit()">
+            <option value="" th:selected="${sortBy == null || sortBy == ''}">Không sắp xếp</option>
+            <option value="asc" th:selected="${sortBy == 'asc'}">Giá từ thấp đến cao</option>
+            <option value="desc" th:selected="${sortBy == 'desc'}">Giá từ cao đến thấp</option>
+        </select>
+    </form>
+    
+    <!-- Hiển thị Danh Sách Phòng -->
+    <div class="rooms">
+        <h3>Danh Sách Phòng</h3>
+        <div class="room-grid">
+            <div th:each="room : ${rooms}" class="room-card">
+                <img th:src="@{'/images/' + ${room.image}}" alt="Hình Ảnh Phòng">
+                <h4 th:text="${room.name}"></h4>
+                <p>Giá mỗi đêm: <span th:text="${room.price} + ' VNĐ'"></span></p>
+                <p>Loại Phòng: <span th:text="${room.type}"></span></p>
+                <p>Trạng thái: <span th:text="${room.available ? 'Còn trống' : 'Đã đặt'}"></span></p>
+                <a th:href="@{/rooms/{id}(id=${room.id})}">Xem Chi Tiết</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

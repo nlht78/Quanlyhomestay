@@ -1,0 +1,154 @@
+/* Header styles */
+header {
+    background-color: #004080; /* Màu xanh đậm cho header */
+    color: #ffffff; /* Màu chữ trắng */
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav .btn {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #0066cc;
+    transition: background-color 0.3s ease;
+}
+
+header nav .btn:hover {
+    background-color: #003366;
+}
+
+header nav .auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+header nav .auth-buttons span {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+header nav .btn.review {
+    background-color: #ff9900;
+    color: #ffffff;
+}
+
+header nav .btn.review:hover {
+    background-color: #cc7a00;
+}
+
+header nav .btn.logout {
+    background-color: #e60000;
+}
+
+header nav .btn.logout:hover {
+    background-color: #b30000;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333333; /* Màu xám đậm cho footer */
+    color: #ffffff; /* Màu chữ trắng */
+    text-align: center;
+    padding: 20px 15px;
+    margin-top: 40px;
+}
+
+footer nav {
+    margin-top: 10px;
+}
+
+footer nav a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer nav a:hover {
+    color: #ff9900; /* Màu vàng cam khi hover */
+}
+
+/* Phần Responsive */
+@media (max-width: 768px) {
+    ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    ul li {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+    }
+
+    h1 {
+        font-size: 2em; /* Nhỏ hơn một chút trên màn hình nhỏ */
+    }
+}
+
+/* Tổng quan về body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9; /* Nền sáng */
+    margin: 0;
+    padding: 0;
+    color: #333333; /* Màu chữ mặc định */
+}
+
+/* Header đã cấu hình từ trước */
+
+/* Phần chính */
+h1 {
+    text-align: center;
+    color: #004080; /* Màu xanh đậm để phù hợp với header */
+    margin-top: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+/* Danh sách điều hướng chính */
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+ul li {
+    width: 250px;
+    text-align: center;
+}
+
+ul li a {
+    display: block;
+    text-decoration: none;
+    background-color: #0066cc; /* Màu xanh đậm */
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+ul li a:hover {
+    background-color: #003366; /* Màu xanh tối hơn khi hover */
+    transform: translateY(-5px); /* Hiệu ứng nổi lên */
+}
+
+/* Footer đã cấu hình từ trước */
+
+
+

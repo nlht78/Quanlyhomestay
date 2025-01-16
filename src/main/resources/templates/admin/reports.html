@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo Doanh thu</title>
+    <link rel="stylesheet" href="/css/manage-customers.css">
+    
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <h2>Báo cáo Doanh thu</h2>
+
+    <!-- Tổng doanh thu -->
+    <h3>Tổng doanh thu: <span th:text="${totalRevenue}"></span> VND</h3>
+
+<h3>Doanh thu theo tháng</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Tháng</th>
+            <th>Doanh thu (VND)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="revenue : ${monthlyRevenue}">
+            <td th:text="${revenue[0]}"></td>
+            <td th:text="${revenue[1]}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Doanh thu theo loại phòng</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Loại phòng</th>
+            <th>Doanh thu (VND)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="revenue : ${revenueByRoomType}">
+            <td th:text="${revenue[0]}"></td>
+            <td th:text="${revenue[1]}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Doanh thu theo từng phòng</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Tên phòng</th>
+            <th>Doanh thu (VND)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="revenue : ${revenueByRoom}">
+            <td th:text="${revenue[0]}"></td>
+            <td th:text="${revenue[1]}"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+    
+
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

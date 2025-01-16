@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn đặt phòng của tôi</title>
+    <link rel="stylesheet" href="/css/user-bookings.css">
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <h1>Đơn đặt phòng của tôi</h1>
+
+    <div th:if="${userBookings.isEmpty()}">
+        <p>Bạn chưa có đơn đặt phòng nào.</p>
+    </div>
+
+    <table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên phòng</th>
+            <th>Ngày nhận phòng</th>
+            <th>Ngày trả phòng</th>
+            <th>Số lượng khách</th>
+            <th>Tổng giá</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="booking : ${userBookings}">
+            <td th:text="${booking.id}"></td>
+            <td th:text="${booking.room.name}"></td>
+            <td th:text="${#temporals.format(booking.checkInDate, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#temporals.format(booking.checkOutDate, 'dd/MM/yyyy')}"></td>
+            <td th:text="${booking.guests}"></td>
+            <td th:text="${booking.totalPrice}"></td>
+            <td th:text="${booking.status}"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+    <a href="/">Quay về trang chủ</a>
+</div>
+
+<!-- Footer -->
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

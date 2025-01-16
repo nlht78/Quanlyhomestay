@@ -1,0 +1,191 @@
+/* Header styles */
+header {
+    background-color: #004080; /* Màu xanh đậm cho header */
+    color: #ffffff; /* Màu chữ trắng */
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav .btn {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #0066cc;
+    transition: background-color 0.3s ease;
+}
+
+header nav .btn:hover {
+    background-color: #003366;
+}
+
+header nav .auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+header nav .auth-buttons span {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+header nav .btn.review {
+    background-color: #ff9900;
+    color: #ffffff;
+}
+
+header nav .btn.review:hover {
+    background-color: #cc7a00;
+}
+
+header nav .btn.logout {
+    background-color: #e60000;
+}
+
+header nav .btn.logout:hover {
+    background-color: #b30000;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333333; /* Màu xám đậm cho footer */
+    color: #ffffff; /* Màu chữ trắng */
+    text-align: center;
+    padding: 20px 15px;
+    margin-top: 40px;
+}
+
+footer nav {
+    margin-top: 10px;
+}
+
+footer nav a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer nav a:hover {
+    color: #ff9900; /* Màu vàng cam khi hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        width: 90%; /* Chiếm gần toàn bộ màn hình */
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em; /* Nhỏ hơn một chút trên màn hình nhỏ */
+    }
+
+    form button[type="submit"] {
+        font-size: 1em; /* Nút nhỏ hơn một chút */
+    }
+}
+/* Tổng quan body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Màu nền sáng */
+    color: #333333; /* Màu chữ mặc định */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header và Footer đã cấu hình sẵn */
+
+/* Phần chính */
+h1 {
+    text-align: center;
+    color: #004080; /* Màu xanh đậm để phù hợp với header */
+    margin-top: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+/* Form container */
+form {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Màu nền trắng */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    border: 1px solid #ddd;
+}
+
+/* Nhãn (label) */
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    color: #333333;
+}
+
+/* Các trường nhập liệu (input, textarea, select) */
+form input[type="text"],
+form input[type="number"],
+form input[type="file"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="file"]:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #004080; /* Màu xanh đậm khi focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 64, 128, 0.3);
+}
+
+/* Textarea */
+form textarea {
+    resize: vertical; /* Cho phép thay đổi kích thước theo chiều dọc */
+    height: 100px;
+}
+
+/* Nút gửi */
+form button[type="submit"] {
+    background-color: #004080; /* Màu xanh đậm */
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #003366; /* Màu xanh đậm hơn khi hover */
+    transform: scale(1.02); /* Hiệu ứng phóng to nhẹ */
+}
+
+form button[type="submit"]:active {
+    background-color: #002244; /* Màu tối hơn khi click */
+    transform: scale(0.98); /* Hiệu ứng thu nhỏ nhẹ khi click */
+}
+
+

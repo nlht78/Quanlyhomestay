@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chỉnh Sửa Phòng</title>
+    <link rel="stylesheet" href="/css/add-room.css">
+</head>
+<body>
+
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<h1>Chỉnh Sửa Phòng</h1>
+    <form th:action="@{/admin/edit-room}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${room.id}">
+        
+        <label for="name">Tên Phòng:</label>
+        <input type="text" id="name" name="name" th:value="${room.name}" required>
+
+        <label for="type">Loại Phòng:</label>
+        <input type="text" id="type" name="type" th:value="${room.type}" required>
+
+        <label for="price">Giá:</label>
+        <input type="number" id="price" name="price" th:value="${room.price}" required>
+        
+		<label for="available">Trạng Thái Phòng:</label>
+		<select id="available" name="available">
+		    <option value="true" th:selected="${room.available}">Có sẵn</option>
+		    <option value="false" th:selected="${!room.available}">Không có sẵn</option>
+		</select>
+
+        <label for="numberOfBedrooms">Số Phòng Ngủ:</label>
+        <input type="number" id="numberOfBedrooms" name="numberOfBedrooms" th:value="${room.numberOfBedrooms}" required>
+
+        <label for="numberOfBeds">Số Giường:</label>
+        <input type="number" id="numberOfBeds" name="numberOfBeds" th:value="${room.numberOfBeds}" required>
+
+        <label for="maxGuests">Số Khách Tối Đa:</label>
+        <input type="number" id="maxGuests" name="maxGuests" th:value="${room.maxGuests}" required>
+
+        <label for="amenities">Tiện Nghi:</label>
+        <textarea id="amenities" name="amenities" th:text="${room.amenities}"></textarea>
+
+        <label for="rules">Quy Định:</label>
+        <textarea id="rules" name="rules" th:text="${room.rules}"></textarea>
+
+        <label for="imageFile">Ảnh Chính:</label>
+        <input type="file" id="imageFile" name="imageFile">
+
+        <label for="additionalImagesFiles">Ảnh Chi Tiết:</label>
+        <input type="file" id="additionalImagesFiles" name="additionalImagesFiles" multiple>
+
+        <button type="submit">Lưu Thay Đổi</button>
+    </form>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+</html>

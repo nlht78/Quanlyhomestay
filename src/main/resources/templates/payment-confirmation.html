@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thanh Toán</title>
+    <link rel="stylesheet" href="/css/paymentcf.css">
+</head>
+<body>
+
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<h3>Quét mã QR để thanh toán</h3>
+    <img src="/images/anhqr.jpg" alt="QR Code">
+
+    <p><strong>Tên tài khoản:</strong> Nhóm 10</p>
+    <p><strong>Số tài khoản:</strong> 1021096794</p>
+    <p><strong>Ngân hàng:</strong> Vietcombank</p>
+    <p><strong>Số tiền thanh toán:</strong> <span th:text="${booking.totalPrice}"></span> ₫</p>
+    <p><strong>Nội dung chuyển khoản:</strong> DatPhong_<span th:text="${booking.room.id}"></span>_<span th:text="${invoice.id}"></span></p>
+    <p class="note" style="color: red;">Nếu bạn đã thanh toán, vui lòng đợi 5-10p và kiểm tra email để nhận thông tin chi tiết. </p>
+
+    <a href="/">Quay về Trang Chủ</a>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+</html>

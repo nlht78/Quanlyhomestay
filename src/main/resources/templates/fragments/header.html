@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Header Fragment</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Nút Home -->
+            <a href="/" class="btn home">Home</a>
+
+            <!-- Hiển thị nút Login/Logout dựa trên trạng thái đăng nhập -->
+            <div class="auth-buttons">
+                <div th:if="${userName == null}">
+                    <a href="/login" class="btn login">Login</a>
+                    <a href="/register" class="btn register">Register</a>
+                </div>
+                <div th:if="${userName != null}">
+                    <span>Welcome, <span th:text="${userName}"></span></span>
+                    <a href="/logout" class="btn logout">Logout</a>
+                    <!-- Nút Đánh giá -->
+                    <a href="/review" class="btn review">Đánh giá</a>
+                    <a href="/user/bookings" class="btn">Đơn đặt phòng của tôi</a>
+                </div>
+                <!-- Kiểm tra vai trò admin -->
+                <div th:if="${userRole == 'ROLE_ADMIN'}">
+                    <a href="/admin" class="btn admin">Admin Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+</body>
+</html>

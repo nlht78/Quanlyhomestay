@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đánh giá</title>
+    <link rel="stylesheet" href="/css/review.css">
+</head>
+<body>
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+    <h1>Đánh giá phòng</h1>
+    <form th:action="@{/review/submit}" method="POST">
+        <!-- Chọn phòng -->
+        <div>
+            <label for="room">Phòng đánh giá:</label>
+            <select id="room" name="roomId" required>
+                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name}"></option>
+            </select>
+        </div>
+
+        <!-- Tên khách hàng -->
+        <div>
+            <label for="customerName">Tên khách hàng:</label>
+            <input type="text" id="customerName" name="customerName" required>
+        </div>
+
+        <!-- Nhận xét -->
+        <div>
+            <label for="comment">Nhận xét:</label>
+            <textarea id="comment" name="comment" required></textarea>
+        </div>
+
+        <!-- Đánh giá -->
+        <div>
+            <label for="rating">Đánh giá (1-5 sao):</label>
+            <input type="number" id="rating" name="rating" min="1" max="5" required>
+        </div>
+
+        <!-- Ngày đánh giá -->
+        <div>
+            <label for="reviewDate">Ngày đánh giá:</label>
+            <input type="date" id="reviewDate" name="reviewDate" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}" required>
+        </div>
+
+        <!-- Nút submit -->
+        <button type="submit">Gửi đánh giá</button>
+    </form>
+    <!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

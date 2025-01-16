@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thông Tin Thanh Toán</title>
+    <link rel="stylesheet" href="/css/payment.css">
+</head>
+<body>
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<!-- Thông tin liên hệ -->
+        <form th:action="@{/payment/confirm}" method="POST">
+            <input type="hidden" name="bookingId" th:value="${booking.id}">
+            <div class="contact-info">
+                <h3>Thông Tin Liên Hệ</h3>
+                <p><strong>Tên:</strong> <span th:text="${booking.customer.name}"></span></p>
+                <p><strong>Email:</strong> <input type="text" name="email" th:value="${booking.customer.email}" required></p>
+                <p><strong>Số điện thoại:</strong> <input type="text" name="phone" required></p>
+                <p><strong>Yêu cầu đặc biệt:</strong> <textarea name="specialRequest"></textarea></p>
+            </div>
+
+            <!-- Thông tin phòng -->
+            <div class="room-info">
+                <h3>Thông Tin Phòng</h3>
+                <img th:src="@{'/images/' + ${booking.room.image}}" alt="Room Image">
+                <p><strong>Tên Phòng:</strong> <span th:text="${booking.room.name}"></span></p>
+                <p><strong>Loại Phòng:</strong> <span th:text="${booking.room.type}"></span></p>
+                <p><strong>Thời Gian:</strong> <span th:text="${booking.checkInDate}"></span> - <span th:text="${booking.checkOutDate}"></span></p>
+                <p><strong>Số Khách:</strong> <span th:text="${booking.guests}"></span></p>
+                <p><strong>Tổng Giá:</strong> <span th:text="${booking.totalPrice}"></span> ₫</p>
+            </div>
+
+            <!-- Nút đặt phòng -->
+            <button type="submit">Xác Nhận Đặt Phòng</button>
+        </form>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <div class="payment-container">
+        
+    </div>
+</body>
+</html>

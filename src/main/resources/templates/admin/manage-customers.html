@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản Lý Khách Hàng</title>
+    <link rel="stylesheet" href="/css/manage-customers.css">
+</head>
+<body>
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<h1>Quản Lý Khách Hàng</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Vai Trò</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.id}"></td>
+                <td th:text="${customer.name}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.role}"></td>
+                <td>
+                    <!-- Nút xóa -->
+                    <form th:action="@{/admin/delete-customer}" method="POST">
+                        <input type="hidden" name="customerId" th:value="${customer.id}">
+                        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa khách hàng này?')">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+</html>

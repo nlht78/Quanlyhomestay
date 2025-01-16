@@ -1,0 +1,132 @@
+/* Header styles */
+header {
+    background-color: #004080; /* Màu xanh đậm cho header */
+    color: #ffffff; /* Màu chữ trắng */
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav .btn {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #0066cc;
+    transition: background-color 0.3s ease;
+}
+
+header nav .btn:hover {
+    background-color: #003366;
+}
+
+header nav .auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+header nav .auth-buttons span {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+header nav .btn.review {
+    background-color: #ff9900;
+    color: #ffffff;
+}
+
+header nav .btn.review:hover {
+    background-color: #cc7a00;
+}
+
+header nav .btn.logout {
+    background-color: #e60000;
+}
+
+header nav .btn.logout:hover {
+    background-color: #b30000;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333333; /* Màu xám đậm cho footer */
+    color: #ffffff; /* Màu chữ trắng */
+    text-align: center;
+    padding: 20px 15px;
+    margin-top: 40px;
+}
+
+footer nav {
+    margin-top: 10px;
+}
+
+footer nav a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer nav a:hover {
+    color: #ff9900; /* Màu vàng cam khi hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    header nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header nav .btn {
+        margin-bottom: 10px;
+    }
+
+    footer {
+        padding: 15px 10px;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff1a1a;
+}

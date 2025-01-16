@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Bookings</title>
+    <link rel="stylesheet" href="/css/manage-customers.css">
+</head>
+<body>
+
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+        <h1>Quản Lý Đặt Phòng</h1>
+        <table border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Mã Khách Hàng</th>
+                <th>Tên Khách Hàng</th>
+                <th>Tên Phòng</th>
+                <th>Ngày Nhận Phòng</th>
+                <th>Ngày Trả Phòng</th>
+                <th>Số Lượng Khách</th>
+                <th>Tổng Giá</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+            <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.id}"></td>
+                    <td th:text="${booking.customer.id}"></td>
+                    <td th:text="${booking.customer.name}"></td>
+                    <td th:text="${booking.room.name}"></td>
+                    <td th:text="${booking.checkInDate}"></td>
+                    <td th:text="${booking.checkOutDate}"></td>
+                    <td th:text="${booking.guests}"></td>
+                    <td th:text="${booking.totalPrice}"></td>
+                    <td th:text="${booking.status}"></td>
+                    <td>
+                        <form th:action="@{/admin/delete-booking}" method="post" style="display:inline;">
+                            <input type="hidden" th:name="bookingId" th:value="${booking.id}">
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/admin">Quay lại Trang Quản Lý</a>
+    </div>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    
+</body>
+</html>

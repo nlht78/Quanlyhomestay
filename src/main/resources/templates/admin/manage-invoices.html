@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản Lý Hóa Đơn</title>
+    <link rel="stylesheet" href="/css/manage-customers.css">
+</head>
+<body>
+
+
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<h1>Quản Lý Hóa Đơn</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Hóa Đơn</th>
+                <th>Mã Đặt Phòng</th>
+                <th>Số Tiền</th>
+                <th>Trạng Thái</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="invoice : ${invoices}">
+                <td th:text="${invoice.id}"></td>
+                <td th:text="${invoice.booking.id}"></td>
+                <td th:text="${invoice.paymentAmount} + ' ₫'"></td>
+                <td th:text="${invoice.paymentStatus}"></td>
+                <td>
+                    <form th:action="@{/admin/invoice/update-status}" method="POST">
+                        <input type="hidden" name="invoiceId" th:value="${invoice.id}">
+                        <select name="status">
+                            <option value="Pending" th:selected="${invoice.paymentStatus == 'Pending'}">Chờ xử lý</option>
+                            <option value="Completed" th:selected="${invoice.paymentStatus == 'Completed'}">Hoàn thành</option>
+                            <option value="Cancelled" th:selected="${invoice.paymentStatus == 'Cancelled'}">Đã hủy</option>
+                        </select>
+                        <button type="submit">Cập nhật</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+</html>

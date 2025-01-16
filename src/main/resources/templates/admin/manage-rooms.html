@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản Lý Phòng</title>
+    <link rel="stylesheet" href="/css/manage-customers.css">
+</head>
+<body>
+
+
+
+<!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<h1>Quản Lý Phòng</h1>
+    <a href="/admin/add-room" class="btn-add-room">Thêm Phòng Mới</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Phòng</th>
+                <th>Loại Phòng</th>
+                <th>Giá</th>
+                <th>Trạng Thái</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="room : ${rooms}">
+                <td th:text="${room.id}"></td>
+                <td th:text="${room.name}"></td>
+                <td th:text="${room.type}"></td>
+                <td th:text="${room.price}"></td>
+                <td th:text="${room.available ? 'Có sẵn' : 'Không có sẵn'}"></td>
+                <td>
+                    <a th:href="@{/admin/edit-room/{id}(id=${room.id})}">Chỉnh Sửa</a>
+                    <form th:action="@{/admin/delete-room}" method="POST" style="display:inline;">
+                        <input type="hidden" name="roomId" th:value="${room.id}">
+                        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng này?')">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+</html>

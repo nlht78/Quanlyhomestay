@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+ <!-- Include Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+<h1>Welcome to Admin Dashboard</h1>
+    <ul>
+        <li><a th:href="@{/admin/manage-customers}">Quản lý khách hàng</a></li>
+        <li><a th:href="@{/admin/manage-bookings}">Quản lý đặt phòng</a></li>
+        <li><a th:href="@{/admin/manage-rooms}">Quản lý phòng</a></li>
+        <li><a th:href="@{/admin/invoices}">Quản lý hóa đơn</a></li>
+        <li><a th:href="@{/admin/manage-reviews}">Quản lý đánh giá</a></li>
+        <li><a th:href="@{/admin/reports}">Báo cáo doanh thu</a></li>
+        
+    </ul>
+
+<!-- Include Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+</html>

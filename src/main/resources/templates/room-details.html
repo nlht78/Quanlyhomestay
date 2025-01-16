@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chi Tiết Phòng</title>
+    <link rel="stylesheet" href="/css/room-details.css"> <!-- Liên kết CSS -->
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- Nội dung chi tiết phòng -->
+    <div class="header">
+        <h1 th:text="${room.name}">Tên Phòng</h1>
+    </div>
+
+    <div class="images-container">
+        <!-- Ảnh chính -->
+        <img th:src="@{'/images/' + ${room.image}}" alt="Ảnh Chính" class="main-image">
+
+        <!-- Ảnh chi tiết -->
+        <div class="additional-images">
+            <div th:each="img : ${room.additionalImages}">
+                <img th:src="@{'/images/' + ${img}}" alt="Ảnh Chi Tiết" class="additional-image">
+            </div>
+        </div>
+    </div>
+
+    <div class="details-container">
+
+        <!-- Chi tiết phòng -->
+        <div class="details">
+            <p><strong>Loại Phòng:</strong> <span th:text="${room.type}"></span></p>
+            <p><strong>Giá mỗi đêm (21:00 - 9:00):</strong> 
+			    <span th:text="${#numbers.formatDecimal(room.price, 0, 1) + ' ₫'}"></span>
+			</p>
+            <p><strong>Số Phòng Ngủ:</strong> <span th:text="${room.numberOfBedrooms}"></span></p>
+            <p><strong>Số Giường:</strong> <span th:text="${room.numberOfBeds}"></span></p>
+            <p><strong>Số Khách Tối Đa:</strong> <span th:text="${room.maxGuests}"></span></p>
+            <p><strong>Tiện Nghi:</strong> <span th:text="${room.amenities}"></span></p>
+            <p><strong>Quy Định:</strong> <span th:text="${room.rules}"></span></p>
+
+            <!-- Thời gian nhận và trả phòng -->
+            <h3>Thời Gian Nhận và Trả Phòng</h3>
+            <p><strong>Nhận phòng:</strong> 14:00</p>
+            <p><strong>Trả phòng:</strong> 12:00</p>
+            <p>Nếu quý khách có nhu cầu về giờ nhận và trả phòng khác với quy định chung của Website, vui lòng liên hệ số điện thoại <strong>012345678</strong> để được hỗ trợ tốt nhất.</p>
+        </div>
+
+        <!-- Form đặt phòng -->
+        <div class="booking-form">
+            <h3>Đặt Phòng</h3>
+            <div th:if="${room.available}">
+                <form id="bookingForm" th:action="@{/rooms/book}" method="POST">
+                    <input type="hidden" name="roomId" th:value="${room.id}">
+					<input type="hidden" id="roomPriceHidden" th:value="${room.price}">
+
+                    <!-- Giá mỗi đêm -->
+                    <p><strong>Giá mỗi đêm:</strong> <span th:text="${room.price}">0</span> ₫</p>
+
+                    <!-- Ngày đến -->
+                    <label for="checkInDate">Ngày đến:</label>
+                    <input type="date" id="checkInDate" name="checkInDate" required>
+
+                    <!-- Ngày đi -->
+                    <label for="checkOutDate">Ngày đi:</label>
+                    <input type="date" id="checkOutDate" name="checkOutDate" required>
+
+                    <!-- Số lượng khách -->
+                    <label for="guests">Số lượng khách:</label>
+                    <select id="guests" name="guests">
+                        <option th:each="i : ${#numbers.sequence(1, room.maxGuests)}"
+                                th:value="${i}" th:text="${i}"></option>
+                    </select>
+
+                    <!-- Tổng giá (ẩn để gửi tới server) -->
+                    <input type="hidden" id="hiddenTotalPrice" name="totalPrice" value="0">
+
+                    <!-- Khu vực hiển thị chi tiết giá -->
+                    <div id="priceDetails">
+                        <p>Vui lòng chọn ngày nhận và trả phòng để xem chi tiết giá.</p>
+                    </div>
+
+                    <!-- Hiển thị tổng giá -->
+                    <p><strong>Tổng giá:</strong> <span id="totalPrice">0</span> ₫</p>
+
+                    <!-- Nút đặt phòng -->
+                    <button type="submit">Đặt Phòng</button>
+                </form>
+            </div>
+            <div th:if="${!room.available}">
+                <p style="color: red; font-weight: bold;">Phòng này hiện tại không có sẵn để đặt phòng.</p>
+                <button type="button" disabled style="background-color: grey; color: white; cursor: not-allowed;">Đặt Phòng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Khu vực hiển thị đánh giá -->
+    <div class="reviews-container">
+        <h3>Đánh Giá</h3>
+        <div th:if="${reviews.isEmpty()}">
+            <p>Hiện tại chưa có đánh giá nào cho phòng này.</p>
+        </div>
+        <div th:if="${!reviews.isEmpty()}">
+            <div class="review-item" th:each="review : ${reviews}">
+                <h4 th:text="${review.customerName}">Tên khách hàng</h4>
+                <p><strong>Đánh giá:</strong> <span th:text="${review.rating}"></span> / 5</p>
+                <p><strong>Nhận xét:</strong> <span th:text="${review.comment}"></span></p>
+                <p><strong>Ngày đánh giá:</strong> <span th:text="${review.reviewDate}"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const checkInDateInput = document.getElementById("checkInDate");
+    const checkOutDateInput = document.getElementById("checkOutDate");
+    const roomPrice = parseFloat(document.getElementById("roomPriceHidden").value) || 0; // Lấy giá từ input ẩn
+    const additionalFee = 250000; // Phí bổ sung từ đêm thứ hai
+    const totalPriceElement = document.getElementById("totalPrice");
+    const hiddenTotalPriceInput = document.getElementById("hiddenTotalPrice"); // Input ẩn để gửi tổng giá
+    const priceDetailsElement = document.getElementById("priceDetails"); // Khu vực hiển thị giá chi tiết
+    const submitButton = document.querySelector("form button[type='submit']"); // Nút Đặt Phòng
+
+    // Thêm container thông báo lỗi
+    const errorMessage = document.createElement("p");
+    errorMessage.style.color = "red";
+    errorMessage.style.fontWeight = "bold";
+    errorMessage.style.marginTop = "10px";
+    errorMessage.style.display = "none"; // Ẩn thông báo ban đầu
+    checkInDateInput.parentElement.appendChild(errorMessage);
+
+    function validateDates() {
+        const checkInDate = new Date(checkInDateInput.value);
+        const checkOutDate = new Date(checkOutDateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đặt thời gian về 00:00:00 để chỉ so sánh ngày
+
+        // Kiểm tra nếu ngày đến trước ngày hiện tại
+        if (checkInDate && checkInDate < today) {
+            errorMessage.textContent = "Ngày đến không được trước ngày hiện tại.";
+            errorMessage.style.display = "block";
+            disableSubmitButton();
+            return false;
+        }
+
+        // Kiểm tra nếu ngày đi <= ngày đến
+        if (checkInDate && checkOutDate && checkOutDate <= checkInDate) {
+            errorMessage.textContent = "Ngày đi phải lớn hơn ngày đến.";
+            errorMessage.style.display = "block";
+            disableSubmitButton();
+            return false;
+        }
+
+        errorMessage.style.display = "none"; // Ẩn thông báo lỗi nếu hợp lệ
+        enableSubmitButton();
+        return true;
+    }
+
+    function calculateTotalPrice() {
+        if (!validateDates()) {
+            totalPriceElement.textContent = "0 ₫";
+            priceDetailsElement.innerHTML = "<p>Vui lòng chọn ngày nhận và trả phòng để xem chi tiết giá.</p>";
+            hiddenTotalPriceInput.value = 0;
+            return; // Dừng tính toán nếu ngày không hợp lệ
+        }
+
+        const checkInDate = new Date(checkInDateInput.value);
+        const checkOutDate = new Date(checkOutDateInput.value);
+
+        if (checkInDate && checkOutDate && checkOutDate > checkInDate) {
+            const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+            let totalPrice = 0;
+            let priceDetailsHtml = ""; // Nội dung HTML hiển thị chi tiết giá
+
+            for (let i = 0; i < nights; i++) {
+                const currentDate = new Date(checkInDate);
+                currentDate.setDate(checkInDate.getDate() + i);
+
+                const priceForNight = i === 0 ? roomPrice : roomPrice + additionalFee;
+                totalPrice += priceForNight;
+
+                priceDetailsHtml += `
+                    <p><strong>Đêm ${currentDate.toLocaleDateString("vi-VN")}:</strong> ${new Intl.NumberFormat('vi-VN').format(priceForNight)} ₫</p>
+                `;
+            }
+
+            priceDetailsElement.innerHTML = priceDetailsHtml;
+            totalPriceElement.textContent = new Intl.NumberFormat('vi-VN').format(totalPrice) + " ₫";
+            hiddenTotalPriceInput.value = totalPrice; // Gán tổng giá vào input ẩn
+        } else {
+            totalPriceElement.textContent = "0 ₫";
+            priceDetailsElement.innerHTML = "<p>Vui lòng chọn ngày nhận và trả phòng để xem chi tiết giá.</p>";
+            hiddenTotalPriceInput.value = 0;
+        }
+    }
+
+    function disableSubmitButton() {
+        submitButton.disabled = true;
+        submitButton.style.backgroundColor = "grey";
+        submitButton.style.cursor = "not-allowed";
+    }
+
+    function enableSubmitButton() {
+        submitButton.disabled = false;
+        submitButton.style.backgroundColor = "#28a745"; // Màu xanh
+        submitButton.style.cursor = "pointer";
+    }
+
+    // Vô hiệu hóa nút "Đặt Phòng" ban đầu
+    disableSubmitButton();
+
+    checkInDateInput.addEventListener("change", () => {
+        validateDates();
+        calculateTotalPrice();
+    });
+
+    checkOutDateInput.addEventListener("change", () => {
+        validateDates();
+        calculateTotalPrice();
+    });
+});
+
+</script>
+
+</body>
+</html>

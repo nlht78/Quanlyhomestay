@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Đánh giá</title>
+    <link rel="stylesheet" href="/css/manage-customers.css">
+</head>
+<body>
+    <!-- Header -->
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Nội dung -->
+    <h2>Quản lý Đánh giá</h2>
+    <!-- Nút Thêm Đánh Giá -->
+<a href="/admin/add-review" class="btn btn-primary" style="margin-bottom: 20px;">Thêm Đánh Giá</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên khách hàng</th>
+                <th>Nhận xét</th>
+                <th>Đánh giá</th>
+                <th>Ngày đánh giá</th>
+                <th>Phòng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="review, iterStat : ${reviews}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${review.customerName}"></td>
+                <td th:text="${review.comment}"></td>
+                <td th:text="${review.rating}"></td>
+                <td th:text="${review.reviewDate != null ? #temporals.format(review.reviewDate, 'dd/MM/yyyy') : 'N/A'}"></td>
+                <td th:text="${review.room.name}"></td>
+                <td>
+                    <form th:action="@{/admin/delete-review}" method="post" style="display: inline;">
+                        <input type="hidden" name="reviewId" th:value="${review.id}">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
